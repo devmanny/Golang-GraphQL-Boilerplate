@@ -9,8 +9,8 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-// CongureRoutes ...
-func CongureRoutes() *echo.Echo {
+// ConfigureRoutes ...
+func ConfigureRoutes() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

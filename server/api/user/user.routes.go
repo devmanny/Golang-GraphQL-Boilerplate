@@ -7,7 +7,7 @@ import (
 // Router ...
 func Router(router *echo.Group) {
 
-	router.GET("/*", Index)
+	router.GET("/", Index)
 	router.POST("/", Index)
 	router.PUT("/", Index)
 	router.DELETE("/", Index)
