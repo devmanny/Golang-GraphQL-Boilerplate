@@ -1,4 +1,4 @@
-package user
+package thing
 
 import (
 	"github.com/labstack/echo"
@@ -7,7 +7,7 @@ import (
 // Router ...
 func Router(router *echo.Group) {
 
-	router.GET("/*", Index)
+	router.GET("/", Index)
 	router.POST("/", Index)
 	router.PUT("/", Index)
 	router.DELETE("/", Index)

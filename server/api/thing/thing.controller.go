@@ -1,4 +1,4 @@
-package user
+package thing
 
 import (
 	"net/http"
@@ -9,6 +9,6 @@ import (
 // Index ...
 func Index(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{
-		"message": "hello 👋🏻 from users",
+		"message": "hello 👋🏻 from things",
 	})
 }
