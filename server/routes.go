@@ -5,13 +5,12 @@ import (
 
 	"app.onca.api/server/api/thing"
 	"app.onca.api/server/api/user"
-
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
 
-// Router ...
-func Router() *echo.Echo {
+// CongureRoutes ...
+func CongureRoutes() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	server.Router()
+	server.Start()
 	appengine.Main()
 }
