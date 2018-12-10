@@ -22,6 +22,7 @@ var Ctx context.Context
 var UserType = graphql.NewObject(graphql.ObjectConfig{
 	Name: "User",
 	Fields: graphql.Fields{
+		"id":   &graphql.Field{Type: graphql.String},
 		"name": &graphql.Field{Type: graphql.String},
 	},
 })
@@ -61,3 +62,11 @@ var Query = graphql.NewObject(graphql.ObjectConfig{
 		},
 	},
 })
+
+// Schema ...
+var Schema, _ = graphql.NewSchema(
+	graphql.SchemaConfig{
+		Query:    Query,
+		Mutation: Mutation,
+	},
+)

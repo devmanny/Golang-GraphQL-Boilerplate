@@ -19,14 +19,6 @@ type RequestData struct {
 // GraphQL ...
 func GraphQL(c echo.Context) error {
 
-	// Schema ...
-	Schema, _ := graphql.NewSchema(
-		graphql.SchemaConfig{
-			Query:    Query,
-			Mutation: Mutation,
-		},
-	)
-
 	Ctx = appengine.NewContext(c.Request())
 
 	request := new(RequestData)
