@@ -3,6 +3,7 @@ package thing
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/graphql-go/graphql"
 	"github.com/labstack/echo"
@@ -47,17 +48,27 @@ func GraphQL(c echo.Context) error {
 // CreateThing ...
 func CreateThing(params graphql.ResolveParams) (interface{}, error) {
 
-	user := &Thing{
-		Name: params.Args["name"].(string),
+	// Get arguments
+	name, _ := params.Args["content"].(string)
+	content, _ := params.Args["content"].(string)
+	userID, _ := params.Args["userId"].(string)
+
+	thing := &Thing{
+		UserID:    userID,
+		Name:      name,
+		Content:   content,
+		CreatedAt: time.Now().UTC(),
 	}
 
 	key := datastore.NewIncompleteKey(Ctx, "Thing", nil)
-	generatedKey, err := datastore.Put(Ctx, key, user)
+	generatedKey, err := datastore.Put(Ctx, key, thing)
 
 	if err != nil {
 		return Thing{}, err
 	}
 
-	user.ID = strconv.FormatInt(generatedKey.IntID(), 10)
-	return user, nil
+	// Update thing's ID
+	thing.ID = strconv.FormatInt(generatedKey.IntID(), 10)
+
+	return thing, nil
 }
