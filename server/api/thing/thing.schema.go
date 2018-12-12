@@ -29,6 +29,7 @@ var ThingType = graphql.NewObject(graphql.ObjectConfig{
 		"id":        &graphql.Field{Type: graphql.String},
 		"userId":    &graphql.Field{Type: graphql.String},
 		"createdAt": &graphql.Field{Type: graphql.DateTime},
+		"name":      &graphql.Field{Type: graphql.String},
 		"content":   &graphql.Field{Type: graphql.String},
 	},
 })
@@ -36,6 +37,12 @@ var ThingType = graphql.NewObject(graphql.ObjectConfig{
 // ThingArgs ...
 var ThingArgs = graphql.FieldConfigArgument{
 	"name": &graphql.ArgumentConfig{
+		Type: graphql.NewNonNull(graphql.String),
+	},
+	"userId": &graphql.ArgumentConfig{
+		Type: graphql.NewNonNull(graphql.String),
+	},
+	"content": &graphql.ArgumentConfig{
 		Type: graphql.NewNonNull(graphql.String),
 	},
 }
