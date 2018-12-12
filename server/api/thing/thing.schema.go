@@ -59,12 +59,7 @@ var Mutation = graphql.NewObject(graphql.ObjectConfig{
 var Query = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Query",
 	Fields: graphql.Fields{
-		"hello": &graphql.Field{
-			Type: graphql.String,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				return "world", nil
-			},
-		},
+		"things": MakeListField(MakeNodeListType("ThingList", thingType), QueryPosts),
 	},
 })
 
