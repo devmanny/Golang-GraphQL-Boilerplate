@@ -99,16 +99,17 @@ func QueryThingList(Ctx context.Context, query *datastore.Query) (ListResult, er
 	query = query.Order("-CreatedAt")
 	var result ListResult
 	// Run the query
-	if keys, err := query.GetAll(Ctx, &result.Nodes); err != nil {
+	keys, err := query.GetAll(Ctx, &result.Nodes)
+	if err != nil {
 		return result, err
-	} else {
-		// Set IDs
-		for i, key := range keys {
-			result.Nodes[i].ID = strconv.FormatInt(key.IntID(), 10)
-		}
-		// Set total count
-		result.TotalCount = len(result.Nodes)
 	}
+	// Set IDs
+	for i, key := range keys {
+		result.Nodes[i].ID = strconv.FormatInt(key.IntID(), 10)
+	}
+	// Set total count
+	result.TotalCount = len(result.Nodes)
+
 	return result, nil
 }
 
