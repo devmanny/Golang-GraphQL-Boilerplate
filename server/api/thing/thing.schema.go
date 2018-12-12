@@ -26,9 +26,10 @@ var Ctx context.Context
 var ThingType = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Thing",
 	Fields: graphql.Fields{
-		"id":      &graphql.Field{Type: graphql.String},
-		"name":    &graphql.Field{Type: graphql.String},
-		"content": &graphql.Field{Type: graphql.String},
+		"id":        &graphql.Field{Type: graphql.String},
+		"userId":    &graphql.Field{Type: graphql.String},
+		"createdAt": &graphql.Field{Type: graphql.DateTime},
+		"content":   &graphql.Field{Type: graphql.String},
 	},
 })
 
@@ -59,7 +60,7 @@ var Mutation = graphql.NewObject(graphql.ObjectConfig{
 var Query = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Query",
 	Fields: graphql.Fields{
-		"things": MakeListField(MakeNodeListType("ThingList", thingType), QueryPosts),
+		"things": MakeListField(MakeNodeListType("ThingList", ThingType), QueryThings),
 	},
 })
 

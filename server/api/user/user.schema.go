@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 
+	"app.onca.api/server/api/thing"
 	"github.com/graphql-go/graphql"
 )
 
@@ -22,8 +23,9 @@ var Ctx context.Context
 var UserType = graphql.NewObject(graphql.ObjectConfig{
 	Name: "User",
 	Fields: graphql.Fields{
-		"id":   &graphql.Field{Type: graphql.String},
-		"name": &graphql.Field{Type: graphql.String},
+		"id":     &graphql.Field{Type: graphql.String},
+		"name":   &graphql.Field{Type: graphql.String},
+		"things": thing.MakeListField(thing.MakeNodeListType("ThingList", thing.ThingType), QueryThingsByUser),
 	},
 })
 
@@ -54,11 +56,12 @@ var Mutation = graphql.NewObject(graphql.ObjectConfig{
 var Query = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Query",
 	Fields: graphql.Fields{
-		"hello": &graphql.Field{
-			Type: graphql.String,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				return "world", nil
+		"user": &graphql.Field{
+			Type: UserType,
+			Args: graphql.FieldConfigArgument{
+				"id": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.String)},
 			},
+			Resolve: QueryUser,
 		},
 	},
 })

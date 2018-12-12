@@ -12,16 +12,6 @@ import (
 	"google.golang.org/appengine/datastore"
 )
 
-var thingType = graphql.NewObject(graphql.ObjectConfig{
-	Name: "Thing",
-	Fields: graphql.Fields{
-		"id":        &graphql.Field{Type: graphql.String},
-		"userId":    &graphql.Field{Type: graphql.String},
-		"createdAt": &graphql.Field{Type: graphql.DateTime},
-		"content":   &graphql.Field{Type: graphql.String},
-	},
-})
-
 // RequestData ...
 type RequestData struct {
 	Query     string                 `json:"query" query:"query"`
@@ -104,12 +94,12 @@ type ListResult struct {
 }
 
 // QueryThingList ...
-func QueryThingList(ctx context.Context, query *datastore.Query) (ListResult, error) {
+func QueryThingList(Ctx context.Context, query *datastore.Query) (ListResult, error) {
 	// Order by creation time
 	query = query.Order("-CreatedAt")
 	var result ListResult
 	// Run the query
-	if keys, err := query.GetAll(ctx, &result.Nodes); err != nil {
+	if keys, err := query.GetAll(Ctx, &result.Nodes); err != nil {
 		return result, err
 	} else {
 		// Set IDs
@@ -124,7 +114,6 @@ func QueryThingList(ctx context.Context, query *datastore.Query) (ListResult, er
 
 // QueryThings ...
 func QueryThings(params graphql.ResolveParams) (interface{}, error) {
-	ctx := params.Context
 	query := datastore.NewQuery("Thing")
 	if limit, ok := params.Args["limit"].(int); ok {
 		query = query.Limit(limit)
@@ -132,5 +121,5 @@ func QueryThings(params graphql.ResolveParams) (interface{}, error) {
 	if offset, ok := params.Args["offset"].(int); ok {
 		query = query.Offset(offset)
 	}
-	return QueryThingList(ctx, query)
+	return QueryThingList(Ctx, query)
 }
