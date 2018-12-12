@@ -11,3 +11,4 @@ indexes:
   - name: "UserID"
   - name: "CreatedAt"
     direction: desc
+
